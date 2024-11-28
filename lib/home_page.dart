@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_app/global_varibales.dart';
+
+import 'product_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,13 +14,8 @@ class _HomePageState extends State<HomePage> {
   final List<String> filters = const [
     "All",
     "Addids",
-    "Sneakers",
-    "Boots",
-    "Sandals",
-    "Heels",
-    "Flats",
     "Nike",
-    "Bets",
+    "Bata",
   ];
 
   late String selectedFilter;
@@ -79,8 +77,8 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: GestureDetector(
                       onTap: () {
-                        print(selectedFilter);
                         selectedFilter = filter;
+                        print(selectedFilter);
                         setState(() {});
                       },
                       child: Chip(
@@ -104,7 +102,23 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
-            )
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final product = products[index];
+                  return ProductCardWidget(
+                    bgColor: index.isEven
+                        ? const Color.fromRGBO(216, 240, 253, 1)
+                        : Color.fromRGBO(245, 247, 249, 1),
+                    imageUrl: product['imageUrl'].toString(),
+                    title: product['title'].toString(),
+                    price: product['price'] as double,
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
